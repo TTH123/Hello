@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.co.auction.dao.GoodsInfoDao">
+
+	<resultMap type="com.co.auction.entity.GoodsInfoEntity" id="GoodsInfoResult">
+		<result column="GOODS_ID" jdbcType="VARCHAR" property="goodsId" />
+		<result column="GOODS_NAME" jdbcType="VARCHAR" property="goodsName" />
+		<result column="GOODS_PINYIN" jdbcType="VARCHAR" property="goodsPinyin" />
+		<result column="PRODUCT_DATE" jdbcType="DATE" property="productDate" />
+		<result column="PRODUCT_LACATION" jdbcType="VARCHAR" property="productLacation" />
+		<result column="PRODUCER" jdbcType="VARCHAR" property="producer" />
+		<result column="ORIGINAL_PRICE" jdbcType="DECIMAL" property="originalPrice" />
+		<result column="SALE_ORIGINAL_PRICE" jdbcType="DECIMAL" property="saleOriginalPrice" />
+		<result column="IS_SOLD" jdbcType="VARCHAR" property="isSold" />
+		<result column="INSERT_DATETIME" jdbcType="TIMESTAMP" property="insertDatetime" />
+		<result column="INSERT_NAME" jdbcType="VARCHAR" property="insertName" />
+		<result column="UPDATE_DATETIME" jdbcType="TIMESTAMP" property="updateDatetime" />
+		<result column="UPDATE_NAME" jdbcType="VARCHAR" property="updateName" />
+	</resultMap>
+
+	<!-- 查询全部商品 -->
+	<select id="findAll" resultMap="GoodsInfoResult">
+		SELECT * FROM GOODSINFO
+	</select>
+	
+	<select id="findById" resultMap="GoodsInfoResult" parameterType="String">
+		SELECT * FROM GOODSINFO
+			<if test="goodsId !=null">
+				WHERE GOODS_ID = #{goodsId}
+			</if>
+	</select>
+	
+	<!-- 更新商品信息 -->
+	<update id="update"  parameterType="String">
+		UPDATE GOODSINFO
+			<set>
+				<if test="goodsName!=null">
+					GOODS_NAME=#{goodsName}
+				</if>
+				<if test="goodsPinyin!=null">
+					GOODS_PINYIN=#{goodsPinyin}
+				</if>
+				<if test="productDate!=null">
+					PRODUCT_DATE=#{productDate}
+				</if>
+				<if test="productLacation!=null">
+					PRODUCT_LACATION=#{productLacation}
+				</if>
+				<if test="producer!=null">
+					PRODUCER=#{producer}
+				</if>
+				<if test="originalPrice!=null">
+					ORIGINAL_PRICE=#{originalPrice}
+				</if>
+				<if test="saleOriginalPrice!=null">
+					SALE_ORIGINAL_PRICE=#{saleOriginalPrice}
+				</if>
+				<if test="isSold!=null">
+					IS_SOLD=#{isSold}
+				</if>
+				<if test="updateDatetime!=null">
+					UPDATE_DATETIME=#{updateDatetime}
+				</if>
+				<if test="updateName!=null">
+					UPDATE_NAME=#{updateName}
+				</if>
+			</set>
+		WHERE GOODS_ID=#{goodsId}
+	</update>
+</mapper>
+	
